@@ -26,6 +26,8 @@ app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(express.json());
 
+app.use(express.static("public"));
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
@@ -51,16 +53,18 @@ db.mongoose
     process.exit();
   });
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to gBase application." });
-});
-
 app.use("/auth", auth);
 
 app.use("/api", authenticateToken, api);
+
+app.get("/", (req, res) => {
+  res.sendFile("index.html", { root: path.join(__dirname, "public") });
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+module.exports = app;
