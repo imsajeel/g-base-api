@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const transactionType = require("../../../database/transaction-types");
 const User = require("../../../models/user.model");
-const Transaction = require("../../../models/Transaction.model");
+const Transaction = require("../../../models/transaction.model");
 
 router.get("/get-types", (req, res) => {
   res.send(transactionType);
