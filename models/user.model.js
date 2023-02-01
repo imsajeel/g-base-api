@@ -9,5 +9,4 @@ const User = mongoose.model(
     isActive: Boolean,
   })
 );
-
 module.exports = User;
