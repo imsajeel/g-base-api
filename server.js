@@ -17,11 +17,12 @@ const app = express();
 
 require("dotenv").config();
 
+console.log(process.env.CORS_ORIGIN);
 var corsOptions = {
   origin: process.env.CORS_ORIGIN,
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json());
