@@ -7,6 +7,7 @@ const User = mongoose.model(
     password: String,
     siteId: String,
     isActive: Boolean,
+    permissions: [String],
   })
 );
 
