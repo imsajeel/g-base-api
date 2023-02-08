@@ -39,14 +39,45 @@ router.post("/add", async (req, res) => {
           error: err,
         });
       } else {
-        res.send({
-          message: "Transaction successfully added",
-          result: result,
-        });
       }
     });
   } else {
     res.send({ message: "Please enter all required fields" });
+  }
+});
+
+router.post("/", (req, res) => {
+  const { siteId, userId } = req.user;
+  if (siteId && userId) {
+    if (req.body.title && (req.body.amount || req.body.amountPaid)) {
+      let newTransaction = new Transaction({
+        ...req.body,
+        amount: req.body.amount ? Number(req.body.amount) : 0,
+        amount_paid: req.body.amountPaid ? Number(req?.body?.amountPaid) : 0,
+        created_at: new Date(),
+        userId: userId,
+        siteId: siteId,
+      });
+
+      newTransaction.save((err, result) => {
+        if (err) {
+          res.send({
+            message: "Something went wrong while submitting transaction",
+            err,
+          });
+        } else {
+          res.send({
+            message: "Transaction successfully added",
+            result: result,
+          });
+        }
+      });
+      // res.send(newTransaction);
+    } else {
+      res.send({ message: "Please enter all required fields" });
+    }
+  } else {
+    res.send({ message: "Auth Error" });
   }
 });
 

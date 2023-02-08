@@ -47,12 +47,11 @@ router.post("/", async (req, res) => {
             }
           });
         } else {
-          res.json({ message: "User doesn't exist." });
+          res.json({ message: "User doesn't exist or blocked by Site Admin." });
         }
       } else {
         res.json({
-          message:
-            "You site is suspended, Please call our customer service for more details.",
+          message: `You site ${fetchedSite?.name} is suspended, Please call our customer service for more details.`,
         });
       }
     } else {
